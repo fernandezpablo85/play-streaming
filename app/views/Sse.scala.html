@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>Server Sent Events with Play!</h1>
+    <div id="container"></div>
+  </body>
+  <script>
+    var stream = new EventSource("sse");
+    stream.onmessage = function (message) {
+      var update = JSON.parse(message.data);
+      $("#container").prepend($("<div>").text(update.user + ": " + update.status));
+    };
+</script>
+</html>

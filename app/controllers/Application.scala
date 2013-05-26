@@ -26,13 +26,13 @@ object Application extends Controller {
   }
 
   def sse = Action {
-    val headers = Map("Content-Length" -> "-1", "Content-Type" -> "text/event-stream")
+    val headers = Map("Content-Length" -> "-1", "Connection" -> "close", "Content-Type" -> "text/event-stream")
     val header = ResponseHeader(200, headers)
     SimpleResult(header, stream &> json &> severSentEvents)
   }
 
   def firehose = Action {
-    val headers = Map("Content-Length" -> "-1", "Content-Type" -> "application/json")
+    val headers = Map("Content-Length" -> "-1", "Connection" -> "close","Content-Type" -> "application/json")
     val header = ResponseHeader(200, headers)
     SimpleResult(header, stream.through(json).through(readable))
   }
